@@ -1,0 +1,5 @@
+calsones,24,2
+pantalones,5,3
+camisas,8,3
+lavandina,5,5
+asado,5,4

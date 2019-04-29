@@ -1,0 +1,39 @@
+insertar 2 registros con un mismo insert
+
+INSERT INTO `alumno`(`nombre`, `apellido`, `legajo`, `edad`,`id-localidad`) 
+VALUES ("armando","paredes",19,66,2),("aldo","pardo",89,96,3)
+------------------------------
+modifico los ultimos 3 registros (id 4 , 5 , 7)
+UPDATE `alumno` SET `id-localidad`= 1 WHERE id>=4
+
+//cargo la tabla materia-alumno con 6 registros
+INSERT INTO `materia-alumno`(`id-materia`, `id-alumno`, `cuatrimestre`, `nota`) 
+VALUES (1,1,"primero",5),(2,2,"segundo",7),(3,3,"tercero",5),(1,4,"cuarto",8),(2,5,"quinto",9),(3,7,"sexto",4)
+
+// traigo de la tabla alumno el nombre y de la tabla localidad el nombre 
+es decir se repiten todos los nombres con todas las localidades
+SELECT a.nombre ,l.nombre FROM alumno AS a , localidad AS l
+
+
+// traigo cada alumno con su localidad
+SELECT a.nombre ,l.nombre FROM alumno AS a , localidad AS l WHERE a.idlocalidad=l.id
+//*******esto relaciona las 2 tablas  y siempre va( a.idlocalidad=l.id)******
+
+// traigo cada alumno con su localidad y con la materia que esta cursando
+SELECT a.nombre ,l.nombre , m.descripcion FROM alumno AS a , localidad AS l , materia AS m , materiaalumno AS ma 
+WHERE a.idlocalidad=l.id and a.id = ma.id-alumno and ma.id-materia = m.id
+
+// traigo los alumnos que viven en la plata
+SELECT a.nombre, l.nombre FROM localidad AS l , alumno AS a 
+WHERE a.idlocalidad = l.id and l.nombre='laPlata'
+
+//devuelve la cantidad de elementos que devuelve (COUNT)
+SELECT COUNT(a.nombre) AS cantidad
+FROM localidad AS l , alumno AS a WHERE a.idlocalidad = l.id and l.nombre='laPlata'
+
+//suma todas las notas  del campo nota de la tabla materia-alumno
+SELECT SUM(nota) FROM materiaalumno
+
+// traigo todos los alumnos que tengan la nota entre 4 y 8
+SELECT a.nombre , ma.nota FROM alumno AS a , materiaalumno AS ma 
+WHERE  a.id = ma.idalumno and ma.nota BETWEEN 4 and 8
